@@ -1,0 +1,15 @@
+<div *ngIf="hero" class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>{{hero.name}}</h2>
+  </div>
+  <div class="panel-body">
+    <div><label>id: </label>{{hero.id}}</div>
+      <form class="form-inline">
+        <div class="form-group"><label>name: </label><input [(ngModel)]="hero.name" name="heroName" placeholder="name" class="form-control"/></div>
+      </form>
+      <div><img src="../assets{{hero.image}}"></div>
+  </div>
+</div>
+
+<button class="btn btn-success" (click)="save()">저장</button>
+<button class="btn btn-default" (click)="goBack()">뒤로가기</button>

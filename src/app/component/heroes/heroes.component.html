@@ -1,0 +1,12 @@
+<form class="form-inline">
+  <div class="form-group"><label>hero name: </label><input placeholder="name" #heroName class="form-control"/></div>
+  <button class="btn btn-default" (click)="add(heroName.value); heroName.value">추가</button>
+</form>
+
+<div *ngFor="let hero of heroes" class="panel" [class.panel-primary]="hero === selectedHero" (click)="onSelect(hero)" style="margin:0px;cursor:pointer">
+  <div class="panel-heading">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <button class="btn btn-xs btn-danger" (click)="delete(hero); $event.stopPropagation()">x</button>
+  </div>
+</div><br>
+<button *ngIf="selectedHero" class="btn btn-default" (click)="gotoDetail()">자세히 보기</button>
