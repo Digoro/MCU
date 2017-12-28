@@ -4,6 +4,7 @@ import {Location} from "@angular/common";
 import {HeroService} from "../../service/hero/hero.service";
 import "rxjs/add/operator/switchMap";
 import {Hero} from "../../model/hero";
+import {Validators, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'hero-detail',
@@ -12,6 +13,9 @@ import {Hero} from "../../model/hero";
 })
 export class HeroDetailComponent implements OnInit {
   hero: Hero;
+  heroForm = new FormGroup({
+    heroName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)]))
+  });
 
   constructor(private heroService: HeroService,
               private route: ActivatedRoute,
