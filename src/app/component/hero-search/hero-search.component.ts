@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable, Subject} from "rxjs";
 import {Hero} from "../../model/hero";
-import {HeroService} from "../../service/hero.service";
+import {HeroService} from "../../service/hero/hero.service";
 import {Router} from "@angular/router";
 import "rxjs/add/observable/of";
 import "rxjs/add/operator/catch";

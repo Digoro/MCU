@@ -3,14 +3,15 @@ import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
-import {HeroService} from "./service/hero.service";
+import {HeroService} from "./service/hero/hero.service";
 import {HeroesComponent} from "./component/heroes/heroes.component";
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {AppRoutingModule} from "./app-routing.module";
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './service/in-memory-data.service';
-import {HttpModule} from "@angular/http";
-import { HeroSearchComponent } from './component/hero-search/hero-search.component';
+import {InMemoryWebApiModule} from "angular-in-memory-web-api";
+import {InMemoryDataService} from "./service/in-memory-data/in-memory-data.service";
+import {HeroSearchComponent} from "./component/hero-search/hero-search.component";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptorService} from "./service/http-interceptor/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -24,10 +25,13 @@ import { HeroSearchComponent } from './component/hero-search/hero-search.compone
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpModule,
+    HttpClientModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
   ],
-  providers: [HeroService],
+  providers: [
+    HeroService,
+    [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

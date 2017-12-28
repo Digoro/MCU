@@ -1,22 +1,22 @@
 import {Injectable} from "@angular/core";
-import {Hero} from "../model/hero";
-import {Http, Headers} from "@angular/http";
-import "rxjs/add/operator/toPromise";
+import {Hero} from "../../model/hero";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/toPromise";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class HeroService {
   private heroesUrl = 'api/heroes';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   getHeroes(): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
       .toPromise()
-      .then(res => res.json() as Hero[])
+      .then(res => res as Hero[])
       .catch(this.handleError);
   }
 
@@ -24,14 +24,14 @@ export class HeroService {
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(res => res.json() as Hero)
+      .then(res => res as Hero)
       .catch(this.handleError);
   }
 
   create(name: string): Promise<Hero> {
     return this.http.post(this.heroesUrl, {name: name, image: `image/${name}.png`})
       .toPromise()
-      .then(res => res.json() as Hero)
+      .then(res => res as Hero)
       .catch(this.handleError);
   }
 
@@ -53,7 +53,7 @@ export class HeroService {
 
   search(term: string): Observable<Hero[]> {
     let url = `${this.heroesUrl}/?name=${term}`;
-    return this.http.get(url).map(res => res.json() as Hero[]);
+    return this.http.get(url).map(res => res as Hero[]);
   }
 
   private handleError(error: any): Promise<any> {
