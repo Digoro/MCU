@@ -12,6 +12,7 @@ import {InMemoryDataService} from "./service/in-memory-data/in-memory-data.servi
 import {HeroSearchComponent} from "./component/hero-search/hero-search.component";
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptorService} from "./service/http-interceptor/auth-interceptor.service";
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {AuthInterceptorService} from "./service/http-interceptor/auth-intercepto
     HeroesComponent,
     DashboardComponent,
     HeroSearchComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
