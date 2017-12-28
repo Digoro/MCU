@@ -1,6 +1,7 @@
-<form class="form-inline">
-  <div class="form-group"><label>hero 이름: </label><input placeholder="name" #heroName class="form-control"/></div>
-  <button class="btn btn-default" (click)="add(heroName.value); heroName.value">추가</button>
+<form [formGroup]="heroForm" (ngSubmit)="add()">
+  <label>hero 이름: </label>
+  <input class="form-control" formControlName="heroName" [class.invalid]="!heroForm.valid" placeholder="추가할 hero 이름을 입력해주세요"/>
+  <button class="btn btn-default" [disabled]="!heroForm.valid">추가</button>
 </form>
 
 <div *ngFor="let hero of heroes" class="panel" [class.panel-primary]="hero === selectedHero" (click)="onSelect(hero)" style="margin:0px;cursor:pointer">

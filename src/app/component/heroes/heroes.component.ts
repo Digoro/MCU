@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Hero} from "../../model/hero";
 import {HeroService} from "../../service/hero/hero.service";
 import {Router} from "@angular/router";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'my-heroes',
@@ -11,6 +12,9 @@ import {Router} from "@angular/router";
 export class HeroesComponent implements OnInit {
   heroes: Hero[];
   selectedHero: Hero;
+  heroForm = new FormGroup({
+    heroName: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)]))
+  });
 
   constructor(private heroService: HeroService, private router: Router) {
   }
@@ -27,9 +31,10 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
 
-  add(name: string): void {
-    name = name.trim();
+  add(): void {
+    let name = this.heroForm.value.heroName;
     if (!name) return;
+    name = name.trim();
     this.heroService.create(name)
       .then(hero => {
         this.heroes.push(hero);

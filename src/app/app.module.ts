@@ -1,7 +1,7 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HeroDetailComponent} from "./component/hero-detail/hero-detail.component";
 import {HeroService} from "./service/hero/hero.service";
 import {HeroesComponent} from "./component/heroes/heroes.component";
@@ -24,6 +24,7 @@ import {AuthInterceptorService} from "./service/http-interceptor/auth-intercepto
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
