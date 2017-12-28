@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {Hero} from "../model/hero";
 import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/toPromise";
+import {Observable} from "rxjs";
+import "rxjs/add/operator/map";
 
 @Injectable()
 export class HeroService {
@@ -14,7 +16,7 @@ export class HeroService {
   getHeroes(): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
       .toPromise()
-      .then(response => response.json() as Hero[])
+      .then(res => res.json() as Hero[])
       .catch(this.handleError);
   }
 
@@ -27,10 +29,7 @@ export class HeroService {
   }
 
   create(name: string): Promise<Hero> {
-    return this.http.post(this.heroesUrl, JSON.stringify({
-      name: name,
-      image: `image/${name}.png`
-    }), {headers: this.headers})
+    return this.http.post(this.heroesUrl, {name: name, image: `image/${name}.png`})
       .toPromise()
       .then(res => res.json() as Hero)
       .catch(this.handleError);
@@ -38,7 +37,7 @@ export class HeroService {
 
   update(hero: Hero): Promise<Hero> {
     const url = `${this.heroesUrl}/${hero.id}`;
-    return this.http.put(url, JSON.stringify(hero), {headers: this.headers})
+    return this.http.put(url, hero)
       .toPromise()
       .then(() => hero)
       .catch(this.handleError);
@@ -46,10 +45,15 @@ export class HeroService {
 
   delete(id: number): Promise<Hero> {
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.delete(url, {headers: this.headers})
+    return this.http.delete(url)
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
+  }
+
+  search(term: string): Observable<Hero[]> {
+    let url = `${this.heroesUrl}/?name=${term}`;
+    return this.http.get(url).map(res => res.json() as Hero[]);
   }
 
   private handleError(error: any): Promise<any> {

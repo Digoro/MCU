@@ -1,0 +1,4 @@
+<input #searchBox (keyup)="search(searchBox.value)" class="form-control" placeholder="hero 검색">
+<div *ngFor="let hero of heroes | async" (click)="gotoDetail(hero)" class="search-result">
+  {{hero.name}}
+</div>

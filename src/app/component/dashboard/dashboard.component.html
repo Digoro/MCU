@@ -1,7 +1,7 @@
 <h3>Top 3 Heroes</h3>
 <div class="row">
   <div *ngFor="let hero of heroes">
-      <div class="thumbnail col-md-3 text-center" style="margin: 10px;" [routerLink]="['/detail', hero.id]">
+      <div class="thumbnail col-md-3 text-center" style="margin: 10px;cursor:pointer;" [routerLink]="['/detail', hero.id]">
         <h4>{{hero.name}}</h4>
       </div>
     </div>
